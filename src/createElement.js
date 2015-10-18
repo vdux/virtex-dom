@@ -2,24 +2,24 @@
  * Imports
  */
 
-import setAttribute from './setAttribute'
+import {setAttribute, appendChild} from 'virtex'
 
 /**
  * Create a DOM element
  */
 
-function createElement (doc, tag, attrs, children) {
+function createElement (doc, dispatch, tag, attrs, children) {
   const node = doc.createElement(tag)
 
   if (attrs) {
     for (let name in attrs) {
-      setAttribute(node, name, attrs[name])
+      dispatch(setAttribute(node, name, attrs[name]))
     }
   }
 
   if (children) {
-    for (let i = 0; i < children.length; i++) {
-      node.appendChild(children[i])
+    for(let i = 0; i < children.length; i++) {
+      dispatch(appendChild(node, children[i]))
     }
   }
 

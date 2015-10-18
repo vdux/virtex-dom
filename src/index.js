@@ -12,12 +12,12 @@ import createElement from './createElement'
  */
 
 function dom (doc) {
-  return next => action => {
+  return ({dispatch}) => next => action => {
     switch (type) {
       case types.CREATE_TEXT_NODE:
         return doc.createTextNode(payload)
       case types.CREATE_ELEMENT:
-        return createElement(doc, payload.tag, payload.attrs, payload.children)
+        return createElement(doc, dispatch, payload.tag, payload.attrs, payload.children)
       case types.SET_ATTRIBUTE:
         return setAttribute(payload.node, payload.name, payload.value)
       case types.REMOVE_ATTRIBUTE:

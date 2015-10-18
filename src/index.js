@@ -27,7 +27,7 @@ function dom (doc) {
       case types.CREATE_ELEMENT:
         return createElement(doc, dispatch, payload.tag, payload.attrs, payload.children)
       case types.SET_ATTRIBUTE:
-        return setAttribute(payload.node, payload.name, payload.value)
+        return setAttribute(dispatch, payload.node, payload.name, payload.value)
       case types.REMOVE_ATTRIBUTE:
         return removeAttribute(payload.node, payload.name, payload.priorValue)
       case types.APPEND_CHILD:

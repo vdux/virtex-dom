@@ -3,6 +3,7 @@
  */
 
 import {actions} from 'virtex'
+import forEach from './forEach'
 
 /**
  * Vars
@@ -18,13 +19,15 @@ function createElement (doc, dispatch, tag, attrs, children) {
   const node = doc.createElement(tag)
 
   if (attrs) {
-    for (let name in attrs) {
-      dispatch(setAttribute(node, name, attrs[name]))
-    }
+    forEach(attrs, (val, key) => {
+      if (val !== null && val !== undefined) {
+        dispatch(setAttribute(node, key, val))
+      }
+    })
   }
 
   if (children) {
-    for(let i = 0; i < children.length; i++) {
+    for(let i = 0, len = children.length; i < len; i++) {
       dispatch(appendChild(node, children[i]))
     }
   }

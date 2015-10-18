@@ -8,7 +8,7 @@ import setAttribute from './setAttribute'
  * Create a DOM element
  */
 
-function createElement (tag, attrs, children) {
+function createElement (doc, tag, attrs, children) {
   const node = doc.createElement(tag)
 
   if (attrs) {

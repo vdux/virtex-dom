@@ -2,7 +2,13 @@
  * Imports
  */
 
-import {setAttribute, appendChild} from 'virtex'
+import {actions} from 'virtex'
+
+/**
+ * Vars
+ */
+
+const {setAttribute, appendChild} = actions
 
 /**
  * Create a DOM element

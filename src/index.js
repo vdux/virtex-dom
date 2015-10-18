@@ -2,10 +2,16 @@
  * Imports
  */
 
-import {types} from 'virtex'
+import {actions} from 'virtex'
 import setAttribute from './setAttribute'
 import removeAttribute from './removeAttribute'
 import createElement from './createElement'
+
+/**
+ * Vars
+ */
+
+const {types} = actions
 
 /**
  * Virtex DOM effects driver
@@ -13,6 +19,8 @@ import createElement from './createElement'
 
 function dom (doc) {
   return ({dispatch}) => next => action => {
+    const {type, payload} = action
+
     switch (type) {
       case types.CREATE_TEXT_NODE:
         return doc.createTextNode(payload)

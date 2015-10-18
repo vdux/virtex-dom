@@ -5,6 +5,7 @@
 import {types} from 'virtex'
 import setAttribute from './setAttribute'
 import removeAttribute from './removeAttribute'
+import createElement from './createElement'
 
 /**
  * Virtex DOM effects driver
@@ -16,7 +17,7 @@ function dom (doc) {
       case types.CREATE_TEXT_NODE:
         return doc.createTextNode(payload)
       case types.CREATE_ELEMENT:
-        return doc.createElement(payload)
+        return createElement(payload.tag, payload.attrs, payload.children)
       case types.SET_ATTRIBUTE:
         return setAttribute(payload.node, payload.name, payload.value)
       case types.REMOVE_ATTRIBUTE:

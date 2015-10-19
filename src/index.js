@@ -34,6 +34,8 @@ function dom (doc) {
         return payload.node.appendChild(payload.childNode)
       case types.REPLACE_CHILD:
         return payload.node.replaceChild(payload.newChild, payload.oldChild)
+      case types.INSERT_BEFORE:
+        return payload.node.insertBefore(payload.newChild, payload.oldChild)
       case types.REMOVE_CHILD:
         return payload.node.removeChild(payload.childNode)
       default:

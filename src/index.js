@@ -18,29 +18,31 @@ const {types} = actions
  */
 
 function dom (doc) {
-  return ({dispatch}) => next => action => {
-    const {type, payload} = action
+  return ({dispatch}) => next => action => handle(dispatch, next, action)
+}
 
-    switch (type) {
-      case types.CREATE_TEXT_NODE:
-        return doc.createTextNode(payload)
-      case types.CREATE_ELEMENT:
-        return createElement(doc, dispatch, payload.tag, payload.attrs, payload.children)
-      case types.SET_ATTRIBUTE:
-        return setAttribute(dispatch, payload.node, payload.name, payload.value)
-      case types.REMOVE_ATTRIBUTE:
-        return removeAttribute(payload.node, payload.name, payload.priorValue)
-      case types.APPEND_CHILD:
-        return payload.node.appendChild(payload.childNode)
-      case types.REPLACE_CHILD:
-        return payload.node.replaceChild(payload.newChild, payload.oldChild)
-      case types.INSERT_BEFORE:
-        return payload.node.insertBefore(payload.newChild, payload.oldChild)
-      case types.REMOVE_CHILD:
-        return payload.node.removeChild(payload.childNode)
-      default:
-        return next(action)
-    }
+function handle (dispatch, next, action) {
+  const {type, payload} = action
+
+  switch (type) {
+    case types.CREATE_TEXT_NODE:
+      return doc.createTextNode(payload)
+    case types.CREATE_ELEMENT:
+      return createElement(doc, dispatch, payload.tag, payload.attrs, payload.children)
+    case types.SET_ATTRIBUTE:
+      return setAttribute(dispatch, payload.node, payload.name, payload.value)
+    case types.REMOVE_ATTRIBUTE:
+      return removeAttribute(payload.node, payload.name, payload.priorValue)
+    case types.APPEND_CHILD:
+      return payload.node.appendChild(payload.childNode)
+    case types.REPLACE_CHILD:
+      return payload.node.replaceChild(payload.newChild, payload.oldChild)
+    case types.INSERT_BEFORE:
+      return payload.node.insertBefore(payload.newChild, payload.oldChild)
+    case types.REMOVE_CHILD:
+      return payload.node.removeChild(payload.childNode)
+    default:
+      return next(action)
   }
 }
 

@@ -25,6 +25,9 @@ function removeAttribute (node, name, priorValue) {
     case 'value':
       setValue(node, null)
       break
+    case 'key':
+    //  Key attribute is a noop
+      break
     default:
       node.removeAttribute(name)
       break

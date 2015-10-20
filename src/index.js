@@ -18,10 +18,10 @@ const {types} = actions
  */
 
 function dom (doc) {
-  return ({dispatch}) => next => action => handle(dispatch, next, action)
+  return ({dispatch}) => next => action => handle(doc, dispatch, next, action)
 }
 
-function handle (dispatch, next, action) {
+function handle (doc, dispatch, next, action) {
   const {type, payload} = action
 
   switch (type) {

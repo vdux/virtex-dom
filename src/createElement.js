@@ -20,7 +20,7 @@ function createElement (doc, dispatch, tag, attrs, children) {
 
   if (attrs) {
     forEach(attrs, (val, key) => {
-      if (val !== null && val !== undefined) {
+      if (val !== null && val !== undefined && key !== 'key') {
         dispatch(setAttribute(node, key, val))
       }
     })

@@ -2,9 +2,21 @@
  * Imports
  */
 
+import {actions} from 'virtex'
 import setAttribute from './setAttribute'
 import removeAttribute from './removeAttribute'
 import createElement from './createElement'
+
+/**
+ * Vars
+ */
+
+const {types} = actions
+const {
+  CREATE_TEXT_NODE, CREATE_ELEMENT, SET_ATTRIBUTE,
+  REMOVE_ATTRIBUTE, APPEND_CHILD, REPLACE_CHILD,
+  INSERT_BEFORE, REMOVE_CHILD
+} = types
 
 /**
  * Virtex DOM effects driver
@@ -15,28 +27,26 @@ function dom (doc) {
 }
 
 function handle (doc, dispatch, next, action) {
-  const {type, payload} = action
-
-  switch (type) {
-    case 'CREATE_TEXT_NODE':
-      return doc.createTextNode(payload)
-    case 'CREATE_ELEMENT':
-      return createElement(doc, dispatch, payload.tag, payload.attrs, payload.children)
-    case 'SET_ATTRIBUTE':
-      return setAttribute(dispatch, payload.node, payload.name, payload.value)
-    case 'REMOVE_ATTRIBUTE':
-      return removeAttribute(payload.node, payload.name, payload.priorValue)
-    case 'APPEND_CHILD':
-      return payload.node.appendChild(payload.childNode)
-    case 'REPLACE_CHILD':
-      return payload.node.replaceChild(payload.newChild, payload.oldChild)
-    case 'INSERT_BEFORE':
-      return payload.node.insertBefore(payload.newChild, payload.oldChild)
-    case 'REMOVE_CHILD':
-      return payload.node.removeChild(payload.childNode)
-    default:
-      return next(action)
+  switch (action.type) {
+    case CREATE_TEXT_NODE:
+      return doc.createTextNode(action.text)
+    case CREATE_ELEMENT:
+      return createElement(doc, dispatch, action.tag, action.attrs, action.children)
+    case SET_ATTRIBUTE:
+      return setAttribute(dispatch, action.node, action.name, action.value)
+    case REMOVE_ATTRIBUTE:
+      return removeAttribute(action.node, action.name, action.priorValue)
+    case APPEND_CHILD:
+      return action.node.appendChild(action.childNode)
+    case REPLACE_CHILD:
+      return action.node.replaceChild(action.newChild, action.oldChild)
+    case INSERT_BEFORE:
+      return action.node.insertBefore(action.newChild, action.oldChild)
+    case REMOVE_CHILD:
+      return action.node.removeChild(action.childNode)
   }
+
+  return next(action)
 }
 
 /**

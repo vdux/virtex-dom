@@ -38,9 +38,6 @@ function setAttribute (dispatch, node, name, value) {
     case 'value':
       setValue(node, value)
       break
-    case 'key':
-    // Don't set the 'key' attribute
-      break
     default:
       node.setAttribute(name, value)
   }

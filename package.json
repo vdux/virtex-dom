@@ -9,6 +9,8 @@
     "prepublish": "rm -rf lib && babel src --out-dir lib",
     "postpublish": "rm -rf lib"
   },
-  "dependencies": {},
+  "dependencies": {
+    "virtex": "^0.1.6"
+  },
   "devDependencies": {}
 }

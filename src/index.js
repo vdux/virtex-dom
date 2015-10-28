@@ -11,12 +11,11 @@ import createElement from './createElement'
  * Vars
  */
 
-const {types} = actions
 const {
   CREATE_TEXT_NODE, CREATE_ELEMENT, SET_ATTRIBUTE,
   REMOVE_ATTRIBUTE, APPEND_CHILD, REPLACE_CHILD,
   INSERT_BEFORE, REMOVE_CHILD
-} = types
+} = actions.types
 
 /**
  * Virtex DOM effects driver
@@ -35,15 +34,15 @@ function handle (doc, dispatch, next, action) {
     case SET_ATTRIBUTE:
       return setAttribute(dispatch, action.node, action.name, action.value)
     case REMOVE_ATTRIBUTE:
-      return removeAttribute(action.node, action.name, action.priorValue)
+      return removeAttribute(action.node, action.name, action.value)
     case APPEND_CHILD:
-      return action.node.appendChild(action.childNode)
+      return action.node.appendChild(action.oldChild)
+    case REMOVE_CHILD:
+      return action.node.removeChild(action.oldChild)
     case REPLACE_CHILD:
       return action.node.replaceChild(action.newChild, action.oldChild)
     case INSERT_BEFORE:
       return action.node.insertBefore(action.newChild, action.oldChild)
-    case REMOVE_CHILD:
-      return action.node.removeChild(action.childNode)
   }
 
   return next(action)

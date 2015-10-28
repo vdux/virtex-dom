@@ -18,18 +18,17 @@ const {setAttribute} = actions
 function createElement (doc, dispatch, tag, attrs, children) {
   const node = doc.createElement(tag)
 
-  if (attrs) {
-    forEach(attrs, (val, key) => {
+  if (attrs !== null) {
+    for (let key in attrs) {
+      const val = attrs[key]
       if (val !== null && val !== undefined) {
         dispatch(setAttribute(node, key, val))
       }
-    })
+    }
   }
 
-  if (children) {
-    for(let i = 0, len = children.length; i < len; i++) {
-      node.appendChild(children[i])
-    }
+  for (let i = 0, len = children.length; i < len; ++i) {
+    node.appendChild(children[i])
   }
 
   return node

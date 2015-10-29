@@ -20,26 +20,35 @@ function setAttribute (dispatch, node, name, value) {
     value = value(node, name, false)
   }
 
-  if (value === undefined || value === null) {
-    if (node.hasAttribute(name)) {
-      dispatch(removeAttribute(node, name))
+  if (isValidAttr(value)) {
+    switch (name) {
+      case 'nodeValue':
+      case 'checked':
+      case 'disabled':
+      case 'selected':
+      case 'innerHTML':
+        node[name] = value
+        break
+      case 'value':
+        setValue(node, value)
+        break
+      default:
+        node.setAttribute(name, value)
     }
-    return
+  } else {
+    dispatch(removeAttribute(node, name))
   }
+}
 
-  switch (name) {
-    case 'nodeValue':
-    case 'checked':
-    case 'disabled':
-    case 'selected':
-    case 'innerHTML':
-      node[name] = value
-      break
-    case 'value':
-      setValue(node, value)
-      break
+function isValidAttr (val) {
+  switch (typeof val) {
+    case 'string':
+    case 'number':
+      return true
+    case 'boolean':
+      return val
     default:
-      node.setAttribute(name, value)
+      return false
   }
 }
 

@@ -16,8 +16,17 @@ const {removeAttribute} = actions
  */
 
 function setAttribute (dispatch, node, name, value) {
+  let hooks = node.$__hooks
+
   if (typeof value === 'function') {
     value = value(node, name, false)
+    if (!hooks) hooks = node.$__hooks || []
+    if (hooks.indexOf(name) === -1) {
+      hooks.push(name)
+    }
+  } else if (hooks) {
+    const idx = hooks.indexOf(name)
+    if (idx !== -1) hooks.splice(idx, 1)
   }
 
   if (isValidAttr(value)) {

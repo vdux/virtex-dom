@@ -10,13 +10,18 @@ import forEach from './forEach'
  */
 
 const {setAttribute} = actions
+const cache = {}
 
 /**
  * Create a DOM element
  */
 
 function createElement (doc, dispatch, tag, attrs, children) {
-  const node = doc.createElement(tag)
+  if (typeof cache[tag] === 'undefined') {
+    cache[tag] = doc.createElement(tag)
+  }
+
+  const node = cache[tag].cloneNode(false)
 
   if (attrs !== null) {
     for (let key in attrs) {

@@ -10,7 +10,7 @@
     "postpublish": "rm -rf lib"
   },
   "dependencies": {
-    "virtex": "^0.1.6"
+    "virtex": "^0.1.7"
   },
   "devDependencies": {}
 }

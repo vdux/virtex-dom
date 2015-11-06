@@ -8,11 +8,7 @@ import setValue from './setValue'
  * Remove an attribute from an element
  */
 
-function removeAttribute (node, name, priorValue) {
-  if (typeof priorValue === 'function') {
-    priorValue(node, name, true)
-  }
-
+function removeAttribute (node, name) {
   switch (name) {
     case 'checked':
     case 'disabled':

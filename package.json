@@ -10,6 +10,8 @@
     "postpublish": "rm -rf lib"
   },
   "dependencies": {
+    "is-svg-attribute": "^1.0.2",
+    "is-svg-element": "^1.0.1",
     "virtex": "^0.1.7"
   },
   "devDependencies": {}

@@ -32,7 +32,7 @@ function dom (doc) {
         case SET_ATTRIBUTE:
           return setAttribute(dispatch, action.node, action.name, action.value)
         case REMOVE_ATTRIBUTE:
-          return removeAttribute(action.node, action.name, action.value)
+          return removeAttribute(action.node, action.name)
         case APPEND_CHILD:
           return action.node.appendChild(action.oldChild)
         case REMOVE_CHILD:

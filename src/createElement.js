@@ -4,9 +4,10 @@
 
 import {actions} from 'virtex'
 import forEach from './forEach'
+import svg from './svg'
 
 /**
- * Vars
+ * Constants
  */
 
 const {setAttribute} = actions
@@ -18,7 +19,9 @@ const cache = {}
 
 function createElement (doc, dispatch, tag, attrs, children) {
   if (typeof cache[tag] === 'undefined') {
-    cache[tag] = doc.createElement(tag)
+    cache[tag] = svg.isElement(tag)
+      ? doc.createElementNS(svg.namespace, tag)
+      : doc.createElement(tag)
   }
 
   const node = cache[tag].cloneNode(false)

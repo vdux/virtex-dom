@@ -28,7 +28,7 @@ function dom (doc) {
         case CREATE_TEXT_NODE:
           return doc.createTextNode(action.text)
         case CREATE_ELEMENT:
-          return createElement(doc, dispatch, action.tag, action.attrs, action.children)
+          return createElement(doc, dispatch, action.vnode)
         case SET_ATTRIBUTE:
           return setAttribute(dispatch, action.node, action.name, action.value)
         case REMOVE_ATTRIBUTE:

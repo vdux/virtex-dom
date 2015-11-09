@@ -7,7 +7,7 @@ import setValue from './setValue'
 import svg from './svg'
 
 /**
- * Vars
+ * Constants
  */
 
 const {removeAttribute} = actions

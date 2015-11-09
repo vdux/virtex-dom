@@ -17,7 +17,7 @@ const cache = {}
  * Create a DOM element
  */
 
-function createElement (doc, dispatch, tag, attrs, children) {
+function createElement (doc, dispatch, {tag, attrs, children}) {
   if (typeof cache[tag] === 'undefined') {
     cache[tag] = svg.isElement(tag)
       ? doc.createElementNS(svg.namespace, tag)
@@ -36,7 +36,7 @@ function createElement (doc, dispatch, tag, attrs, children) {
   }
 
   for (let i = 0, len = children.length; i < len; ++i) {
-    node.appendChild(children[i])
+    node.appendChild(children[i].el)
   }
 
   return node

@@ -2,7 +2,7 @@
   "name": "virtex-dom",
   "description": "DOM effect driver for virtex",
   "repository": "git://github.com/ashaffer/virtex-dom.git",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {

@@ -8,13 +8,13 @@ import removeAttribute from './removeAttribute'
 import createElement from './createElement'
 
 /**
- * Vars
+ * Constants
  */
 
 const {
-  CREATE_TEXT_NODE, CREATE_ELEMENT, SET_ATTRIBUTE,
-  REMOVE_ATTRIBUTE, APPEND_CHILD, REPLACE_CHILD,
-  INSERT_BEFORE, REMOVE_CHILD
+  CREATE_ELEMENT, SET_ATTRIBUTE, REMOVE_ATTRIBUTE,
+  APPEND_CHILD, REPLACE_NODE, INSERT_BEFORE,
+  REMOVE_NODE
 } = actions.types
 
 /**
@@ -25,8 +25,6 @@ function dom (doc) {
   return ({dispatch}) => next => {
     return action => {
       switch (action.type) {
-        case CREATE_TEXT_NODE:
-          return doc.createTextNode(action.text)
         case CREATE_ELEMENT:
           return createElement(doc, dispatch, action.vnode)
         case SET_ATTRIBUTE:
@@ -34,13 +32,19 @@ function dom (doc) {
         case REMOVE_ATTRIBUTE:
           return removeAttribute(action.node, action.name)
         case APPEND_CHILD:
-          return action.node.appendChild(action.oldChild)
-        case REMOVE_CHILD:
-          return action.node.removeChild(action.oldChild)
-        case REPLACE_CHILD:
-          return action.node.replaceChild(action.newChild, action.oldChild)
-        case INSERT_BEFORE:
-          return action.node.insertBefore(action.newChild, action.oldChild)
+          return action.node.appendChild(action.newNode)
+        case REMOVE_NODE: {
+          const {node} = action
+          return node.parentNode.removeChild(node)
+        }
+        case REPLACE_NODE: {
+          const {node, newNode} = action
+          return node.parentNode.replaceChild(newNode, node)
+        }
+        case INSERT_BEFORE: {
+          const {node, newNode, oldNode} = action
+          return node.insertBefore(newNode, oldNode)
+        }
       }
 
       return next(action)

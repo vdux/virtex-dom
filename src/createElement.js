@@ -3,7 +3,7 @@
  */
 
 import {actions} from 'virtex'
-import forEach from './forEach'
+import forEach from 'foreach'
 import svg from './svg'
 
 /**
@@ -17,14 +17,21 @@ const cache = {}
  * Create a DOM element
  */
 
-function createElement (doc, dispatch, {tag, attrs, children}) {
-  if (typeof cache[tag] === 'undefined') {
-    cache[tag] = svg.isElement(tag)
-      ? doc.createElementNS(svg.namespace, tag)
-      : doc.createElement(tag)
+function createElement (doc, dispatch, vnode) {
+  if (vnode.type === '#text') {
+    return doc.createTextNode(vnode.attrs.nodeValue)
   }
 
-  const node = cache[tag].cloneNode(false)
+  const {type, attrs, children} = vnode
+  let cached = cache[type]
+
+  if (typeof cached === 'undefined') {
+    cached = cache[type] = svg.isElement(type)
+      ? doc.createElementNS(svg.namespace, type)
+      : doc.createElement(type)
+  }
+
+  const node = cached.cloneNode(false)
 
   if (attrs !== null) {
     for (let key in attrs) {

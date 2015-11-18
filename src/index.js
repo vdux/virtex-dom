@@ -42,8 +42,8 @@ function dom (doc) {
           return node.parentNode.replaceChild(newNode, node)
         }
         case INSERT_BEFORE: {
-          const {node, newNode, oldNode} = action
-          return node.insertBefore(newNode, oldNode)
+          const {node, newNode, pos} = action
+          return node.insertBefore(newNode, node.childNodes[pos] || null)
         }
       }
 

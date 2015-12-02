@@ -19,10 +19,10 @@ const cache = {}
 
 function createElement (doc, dispatch, vnode) {
   if (vnode.type === '#text') {
-    return doc.createTextNode(vnode.attrs.nodeValue)
+    return doc.createTextNode(vnode.props.nodeValue)
   }
 
-  const {type, attrs, children} = vnode
+  const {type, props, children} = vnode
   let cached = cache[type]
 
   if (typeof cached === 'undefined') {
@@ -33,9 +33,9 @@ function createElement (doc, dispatch, vnode) {
 
   const node = cached.cloneNode(false)
 
-  if (attrs !== null) {
-    for (let key in attrs) {
-      const val = attrs[key]
+  if (props !== null) {
+    for (let key in props) {
+      const val = props[key]
       if (val !== null && val !== undefined) {
         dispatch(setAttribute(node, key, val))
       }

@@ -3,7 +3,7 @@
  */
 
 import {actions} from 'virtex'
-import forEach from 'foreach'
+import forEach from '@f/foreach'
 import svg from './svg'
 
 /**

@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@f/foreach": "^1.2.1",
-    "is-svg-attribute": "^1.0.2",
     "is-svg-element": "^1.0.1",
+    "svg-attribute-namespace": "^1.0.0",
     "virtex": "^0.1.7"
   },
   "devDependencies": {

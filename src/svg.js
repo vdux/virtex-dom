@@ -15,13 +15,8 @@ const namespace = 'http://www.w3.org/2000/svg'
  * Svg stuff
  */
 
-function isAttribute (name) {
-  return getNamespaceOfAttribute(name) !== undefined
-}
-
 export default {
   isElement,
-  isAttribute,
   getNamespaceOfAttribute,
   namespace
 }

@@ -33,12 +33,13 @@ function setAttribute (dispatch, node, name, value) {
       case 'value':
         setValue(node, value)
         break
-      case svg.isAttribute(name):
-        const attrNamespace = getNamespaceOfAttribute(name)
-        node.setAttributeNS(attrNamespace, name, value)
-        break
       default:
-        node.setAttribute(name, value)
+        const attrNamespace = svg.getNamespaceOfAttribute(name)
+        if (attrNamespace !== null) {
+          node.setAttributeNS(attrNamespace, name, value)
+        } else {
+          node.setAttribute(name, value)
+        }
         break
     }
   } else {

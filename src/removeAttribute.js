@@ -2,7 +2,7 @@
  * Imports
  */
 
-import setValue from './setValue'
+import setValue from '@f/set-value'
 
 /**
  * Remove an attribute from an element

@@ -3,7 +3,7 @@
  */
 
 import {actions} from 'virtex'
-import setValue from './setValue'
+import setValue from '@f/set-value'
 import svg from './svg'
 
 /**

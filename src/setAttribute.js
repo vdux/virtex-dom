@@ -28,6 +28,7 @@ function setAttribute (dispatch, node, name, value) {
       case 'disabled':
       case 'selected':
       case 'innerHTML':
+      case 'textContent':
         node[name] = value
         break
       case 'value':

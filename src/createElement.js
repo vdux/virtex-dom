@@ -2,7 +2,7 @@
  * Imports
  */
 
-import {actions} from 'virtex'
+import setAttribute from './setAttribute'
 import forEach from '@f/foreach'
 import svg from './svg'
 
@@ -10,14 +10,13 @@ import svg from './svg'
  * Constants
  */
 
-const {setAttribute} = actions
 const cache = {}
 
 /**
  * Create a DOM element
  */
 
-function createElement (doc, dispatch, vnode) {
+function createElement (doc, vnode) {
   if (vnode.type === '#text') {
     return doc.createTextNode(vnode.props.nodeValue)
   }
@@ -34,12 +33,11 @@ function createElement (doc, dispatch, vnode) {
   const node = cached.cloneNode(false)
 
   if (props !== null) {
-    for (let key in props) {
-      const val = props[key]
+    forEach(props, (val, key) => {
       if (val !== null && val !== undefined) {
-        dispatch(setAttribute(node, key, val))
+        setAttribute(node, key, val)
       }
-    }
+    })
   }
 
   for (let i = 0, len = children.length; i < len; ++i) {

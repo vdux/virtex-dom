@@ -3,8 +3,7 @@
  */
 
 import {actions} from 'virtex'
-import setAttribute from './setAttribute'
-import removeAttribute from './removeAttribute'
+import updateElement from './updateElement'
 import createElement from './createElement'
 
 /**
@@ -12,9 +11,8 @@ import createElement from './createElement'
  */
 
 const {
-  CREATE_ELEMENT, SET_ATTRIBUTE, REMOVE_ATTRIBUTE,
-  APPEND_CHILD, REPLACE_NODE, INSERT_BEFORE,
-  REMOVE_NODE
+  CREATE_NODE, UPDATE_NODE, REMOVE_NODE,
+  REPLACE_NODE, INSERT_NODE
 } = actions.types
 
 /**
@@ -25,14 +23,8 @@ function dom (doc) {
   return ({dispatch}) => next => {
     return action => {
       switch (action.type) {
-        case CREATE_ELEMENT:
-          return createElement(doc, dispatch, action.vnode)
-        case SET_ATTRIBUTE:
-          return setAttribute(dispatch, action.node, action.name, action.value)
-        case REMOVE_ATTRIBUTE:
-          return removeAttribute(action.node, action.name)
-        case APPEND_CHILD:
-          return action.node.appendChild(action.newNode)
+        case CREATE_NODE:
+          return createElement(doc, action.vnode)
         case REMOVE_NODE: {
           const {node} = action
           return node.parentNode.removeChild(node)
@@ -41,7 +33,7 @@ function dom (doc) {
           const {node, newNode} = action
           return node.parentNode.replaceChild(newNode, node)
         }
-        case INSERT_BEFORE: {
+        case INSERT_NODE: {
           const {node, newNode, pos} = action
           return node.insertBefore(newNode, node.childNodes[pos] || null)
         }

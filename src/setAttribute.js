@@ -2,21 +2,15 @@
  * Imports
  */
 
-import {actions} from 'virtex'
+import removeAttribute from './removeAttribute'
 import setValue from '@f/set-value'
 import svg from './svg'
-
-/**
- * Constants
- */
-
-const {removeAttribute} = actions
 
 /**
  * Set an attribute on an element
  */
 
-function setAttribute (dispatch, node, name, value) {
+function setAttribute (node, name, value) {
   if (typeof value === 'function') {
     value = value(node, name)
   }
@@ -44,7 +38,7 @@ function setAttribute (dispatch, node, name, value) {
         break
     }
   } else {
-    dispatch(removeAttribute(node, name))
+    removeAttribute(node, name)
   }
 }
 

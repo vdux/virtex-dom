@@ -11,6 +11,8 @@ import forEach from '@f/foreach'
  */
 
 function updateElement (prev, next) {
+  const node = next.element = prev.element
+
   /**
    * Diff attributes
    */
@@ -27,6 +29,7 @@ function updateElement (prev, next) {
     }
   }, nattrs)
 
+  return next
 }
 
 /**

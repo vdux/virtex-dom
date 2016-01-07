@@ -2,9 +2,9 @@
  * Imports
  */
 
+import getNamespaceOfAttribute from 'svg-attribute-namespace'
 import removeAttribute from './removeAttribute'
 import setValue from '@f/set-value'
-import svg from './svg'
 
 /**
  * Set an attribute on an element
@@ -29,16 +29,21 @@ function setAttribute (node, name, value) {
         setValue(node, value)
         break
       default:
-        const attrNamespace = svg.getNamespaceOfAttribute(name)
-        if (attrNamespace !== null) {
-          node.setAttributeNS(attrNamespace, name, value)
-        } else {
-          node.setAttribute(name, value)
-        }
+        setAttr(node, name, value)
         break
     }
   } else {
     removeAttribute(node, name)
+  }
+}
+
+function setAttr (node, name, value) {
+  const ns = getNamespaceOfAttribute(name)
+
+  if (ns !== null) {
+    node.setAttributeNS(ns, name, value)
+  } else {
+    node.setAttribute(name, value)
   }
 }
 

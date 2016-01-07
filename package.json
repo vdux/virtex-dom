@@ -10,7 +10,11 @@
     "postpublish": "rm -rf lib"
   },
   "dependencies": {
+    "@f/create-element": "^1.0.0",
     "@f/foreach": "^1.2.1",
+    "@f/insert-element": "^1.0.0",
+    "@f/remove-element": "^1.0.0",
+    "@f/replace-element": "^1.0.0",
     "@f/set-value": "^1.0.0",
     "is-svg-element": "^1.0.1",
     "svg-attribute-namespace": "^2.1.0",

@@ -2,8 +2,9 @@
  * Imports
  */
 
-import getNamespaceOfAttribute from 'svg-attribute-namespace'
 import removeAttribute from './removeAttribute'
+import isValidAttr from '@f/is-valid-attr'
+import setAttr from '@f/set-attribute'
 import setValue from '@f/set-value'
 
 /**
@@ -34,28 +35,6 @@ function setAttribute (node, name, value) {
     }
   } else {
     removeAttribute(node, name)
-  }
-}
-
-function setAttr (node, name, value) {
-  const ns = getNamespaceOfAttribute(name)
-
-  if (ns !== null) {
-    node.setAttributeNS(ns, name, value)
-  } else {
-    node.setAttribute(name, value)
-  }
-}
-
-function isValidAttr (val) {
-  switch (typeof val) {
-    case 'string':
-    case 'number':
-      return true
-    case 'boolean':
-      return val
-    default:
-      return false
   }
 }
 

@@ -2,9 +2,9 @@
  * Imports
  */
 
-import replaceElement from '@f/replaceElement'
+import replaceElement from '@f/replace-element'
 import insertElement from '@f/insert-element'
-import removeElement from '@f/removeElement'
+import removeElement from '@f/remove-element'
 import updateNode from './updateNode'
 import createNode from './createNode'
 import {actions} from 'virtex'
@@ -19,19 +19,24 @@ const {CREATE_NODE, UPDATE_NODE, REMOVE_NODE, REPLACE_NODE, INSERT_NODE} = actio
  * Virtex DOM effects driver
  */
 
-function dom ({dispatch}) {
+function dom () {
   return next => action => {
     switch (action.type) {
       case CREATE_NODE:
-        return createNode(action.vnode)
+        createNode(action.vnode, action.children)
+        return action.vnode
       case UPDATE_NODE:
-        return updateNode(action.prev, action.vnode)
+        updateNode(action.prev, action.vnode)
+        return action.vnode
       case REMOVE_NODE:
-        return removeElement(action.vnode.element)
+        removeElement(action.vnode.element)
+        return action.vnode
       case REPLACE_NODE:
-        return replaceElement(action.vnode.element, action.prev.element)
+        replaceElement(action.vnode.element, action.prev.element)
+        return action.vnode
       case INSERT_NODE:
-        return insertElement(action.vnode.element, action.newVnode.element, action.pos)
+        insertElement(action.vnode.element, action.newVnode.element, action.pos)
+        return action.vnode
     }
 
     return next(action)

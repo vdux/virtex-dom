@@ -4,6 +4,7 @@
 
 import removeAttribute from './removeAttribute'
 import setAttribute from './setAttribute'
+import isUndefined from '@f/is-undefined'
 import forEach from '@f/foreach'
 
 /**
@@ -17,15 +18,18 @@ function updateElement (prev, next) {
    * Diff attributes
    */
 
+  const pattrs = prev.props
+  const nattrs = next.props
+
   forEach((val, key) => {
     if (!nattrs || isUndefined(nattrs[key])) {
-      effect(removeAttribute(node, key))
+      removeAttribute(node, key)
     }
   }, pattrs)
 
   forEach((val, key) => {
     if (!pattrs || val !== pattrs[key]) {
-      effect(setAttribute(node, key, val))
+      setAttribute(node, key, val)
     }
   }, nattrs)
 

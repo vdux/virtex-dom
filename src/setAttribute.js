@@ -4,6 +4,7 @@
 
 import removeAttribute from './removeAttribute'
 import isValidAttr from '@f/is-valid-attr'
+import applyStyles from '@f/apply-styles'
 import setAttr from '@f/set-attribute'
 import setValue from '@f/set-value'
 
@@ -11,12 +12,14 @@ import setValue from '@f/set-value'
  * Set an attribute on an element
  */
 
-function setAttribute (node, name, value) {
+function setAttribute (node, name, value, prevValue) {
   if (typeof value === 'function') {
     value = value(node, name)
   }
 
-  if (isValidAttr(value)) {
+  if (name === 'style') {
+    applyStyles(node, value, prevValue)
+  } else if (isValidAttr(value)) {
     switch (name) {
       case 'nodeValue':
       case 'checked':

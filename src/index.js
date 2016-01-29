@@ -7,6 +7,7 @@ import insertElement from '@f/insert-element'
 import removeElement from '@f/remove-element'
 import updateNode from './updateNode'
 import createNode from './createNode'
+import forEach from '@f/foreach'
 import {actions} from 'virtex'
 
 /**
@@ -23,11 +24,9 @@ function dom () {
   return next => action => {
     switch (action.type) {
       case CREATE_NODE:
-        createNode(action.vnode, action.children)
-        return action.vnode
+        return createNode(action.vnode, action.children)
       case UPDATE_NODE:
-        updateNode(action.prev, action.vnode)
-        return action.vnode
+        return updateNode(action.prev, action.vnode)
       case REMOVE_NODE:
         removeElement(action.vnode.element)
         return action.vnode
@@ -44,7 +43,20 @@ function dom () {
 }
 
 /**
+ * Setup the cached element property on a vnode tree. Useful for server-side
+ * rendering
+ */
+
+function reconstitute (vnode, element) {
+  vnode.element = element
+  forEach( (vnode, i) => reconstitute(vnode, element.childNodes[i]), vnode.children)
+}
+
+/**
  * Exports
  */
 
 export default dom
+export {
+  reconstitute
+}

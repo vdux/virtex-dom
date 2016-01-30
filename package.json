@@ -10,7 +10,7 @@
     "postpublish": "rm -rf lib"
   },
   "dependencies": {
-    "@f/apply-styles": "^1.0.0",
+    "@f/apply-styles": "^1.0.1",
     "@f/create-element": "^1.0.0",
     "@f/foreach": "^1.2.1",
     "@f/insert-element": "^1.0.0",

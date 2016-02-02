@@ -24,7 +24,7 @@ function dom () {
   return next => action => {
     switch (action.type) {
       case CREATE_NODE:
-        return createNode(action.vnode, action.children)
+        return createNode(action.vnode, action.children, action.element)
       case UPDATE_NODE:
         return updateNode(action.prev, action.vnode)
       case REMOVE_NODE:
@@ -43,20 +43,7 @@ function dom () {
 }
 
 /**
- * Setup the cached element property on a vnode tree. Useful for server-side
- * rendering
- */
-
-function reconstitute (vnode, element) {
-  vnode.element = element
-  forEach( (vnode, i) => reconstitute(vnode, element.childNodes[i]), vnode.children)
-}
-
-/**
  * Exports
  */
 
 export default dom
-export {
-  reconstitute
-}

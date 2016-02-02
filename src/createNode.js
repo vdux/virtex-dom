@@ -10,19 +10,23 @@ import forEach from '@f/foreach'
  * Create a DOM element
  */
 
-function createNode (vnode, children) {
+function createNode (vnode, children, element) {
   const type = vnode.type
+  let node
 
-  if (type === '#text') {
-    vnode.element = document.createTextNode(vnode.props.nodeValue)
-    return vnode
+  if (!element) {
+    if (type === '#text') {
+      vnode.element = document.createTextNode(vnode.props.nodeValue)
+      return vnode
+    }
+
+    node = vnode.element = createElement(type)
+  } else {
+    node = vnode.element = element
   }
 
-  const node = vnode.element = createElement(type)
-
-  forEach((value, name) => setAttribute(node, name, value), vnode.props)
   forEach(child => node.appendChild(child.element), children)
-
+  forEach((value, name) => setAttribute(node, name, value), vnode.props)
   return vnode
 }
 

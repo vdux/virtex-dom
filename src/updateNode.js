@@ -28,9 +28,8 @@ function updateElement (prev, next) {
   }, pattrs)
 
   forEach((val, key) => {
-    const pval = pattrs[key]
-    if (!pattrs || val !== pval) {
-      setAttribute(node, key, val, pval)
+    if (!pattrs || val !== pattrs[key]) {
+      setAttribute(node, key, val, pattrs[key])
     }
   }, nattrs)
 

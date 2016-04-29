@@ -27,6 +27,7 @@ function setAttribute (node, name, value, prevValue) {
       case 'selected':
       case 'innerHTML':
       case 'textContent':
+      case 'autofocus':
         node[name] = value
         break
       case 'value':

@@ -27,6 +27,8 @@ function setAttribute (node, name, value, prevValue) {
       case 'selected':
       case 'innerHTML':
       case 'textContent':
+      case 'defaultValue':
+      case 'defaultChecked':
         node[name] = value
         break
       case 'value':

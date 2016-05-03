@@ -6,6 +6,7 @@ import removeAttribute from './removeAttribute'
 import isValidAttr from '@f/is-valid-attr'
 import applyStyles from '@f/apply-styles'
 import setAttr from '@f/set-attribute'
+import focus from '@f/focus-element'
 import setValue from '@f/set-value'
 
 /**
@@ -21,6 +22,11 @@ function setAttribute (node, name, value, prevValue) {
     applyStyles(node, value, prevValue)
   } else if (isValidAttr(value)) {
     switch (name) {
+      case 'autofocus':
+        if (value && value !== prevValue) {
+          setTimeout(() => focus(node))
+        }
+        break
       case 'nodeValue':
       case 'checked':
       case 'disabled':

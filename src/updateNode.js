@@ -23,7 +23,7 @@ function updateElement (prev, next) {
 
   forEach((val, key) => {
     if (!nattrs || isUndefined(nattrs[key])) {
-      removeAttribute(node, key)
+      removeAttribute(node, key, pattrs[key])
     }
   }, pattrs)
 

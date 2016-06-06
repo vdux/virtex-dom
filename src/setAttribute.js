@@ -45,7 +45,7 @@ function setAttribute (node, name, value, prevValue) {
         break
     }
   } else {
-    removeAttribute(node, name)
+    removeAttribute(node, name, prevValue)
   }
 }
 

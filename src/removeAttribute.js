@@ -8,7 +8,12 @@ import setValue from '@f/set-value'
  * Remove an attribute from an element
  */
 
-function removeAttribute (node, name) {
+function removeAttribute (node, name, prevValue) {
+  if (typeof prevValue === 'function') {
+    prevValue(node, name, true)
+    return
+  }
+
   switch (name) {
     case 'checked':
     case 'disabled':

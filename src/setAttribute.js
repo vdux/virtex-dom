@@ -15,7 +15,8 @@ import setValue from '@f/set-value'
 
 function setAttribute (node, name, value, prevValue) {
   if (typeof value === 'function') {
-    value = value(node, name)
+    value(node, name)
+    return
   }
 
   if (name === 'style') {
